@@ -28,7 +28,7 @@ Agents Bridge is a full‑stack agent management platform with three core capabi
 | Frontend | React 19 + TypeScript + [shadcn/ui](https://ui.shadcn.com) |
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) |
 | Backend | Bun HTTP Server |
-| Protocol | [ACP (Agent Communication Protocol)](https://github.com/agentcommunicationprotocol) |
+| Protocol | [ACP (Agent Client Protocol)](https://agentclientprotocol.com) |
 
 主题色 | Theme: `#3388BB`
 
