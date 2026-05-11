@@ -20,7 +20,7 @@ export interface ToolCallData {
   kind: ToolKind
   title: string
   status: ToolStatus
-  content?: Array<{ type: 'diff' | 'terminal' | 'content'; text: string }>
+  content?: Array<{ type: 'diff' | 'terminal' | 'text'; text: string }>
   rawInput?: string
   rawOutput?: string
 }

@@ -1,4 +1,4 @@
-import type { Session } from '@/types/session'
+import type { Session, SessionStatus } from '@/types/session'
 import { Button } from '@/components/ui/button'
 
 interface SessionHeaderProps {
@@ -8,14 +8,14 @@ interface SessionHeaderProps {
   onSendCommand: () => void
 }
 
-const statusLabels: Record<string, string> = {
+const statusLabels: Record<SessionStatus, string> = {
   in_progress: '运行中',
   pending: '等待中',
   completed: '已完成',
   failed: '已失败',
 }
 
-const statusColors: Record<string, string> = {
+const statusColors: Record<SessionStatus, string> = {
   in_progress: '#22c55e',
   pending: '#f59e0b',
   completed: '#9ca3af',

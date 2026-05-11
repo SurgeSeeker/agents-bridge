@@ -5,6 +5,10 @@ interface MessageBubbleProps {
   message: Message
 }
 
+function formatTime(timestamp: string) {
+  return new Date(timestamp).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
+}
+
 export default function MessageBubble({ message }: MessageBubbleProps) {
   const isHuman = message.role === 'human'
 
@@ -20,7 +24,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
               <p className="text-[15px] leading-relaxed">{message.content}</p>
             </div>
             <p className="px-1 text-xs text-gray-400">
-              {new Date(message.timestamp).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
+              {formatTime(message.timestamp)}
             </p>
           </div>
         </div>
@@ -42,7 +46,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
       )}
 
       <p className="mt-1 text-xs text-gray-400">
-        {new Date(message.timestamp).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
+        {formatTime(message.timestamp)}
       </p>
     </div>
   )
