@@ -9,15 +9,17 @@ interface SessionHeaderProps {
 }
 
 const statusLabels: Record<string, string> = {
-  running: '运行中',
-  waiting: '等待中',
+  in_progress: '运行中',
+  pending: '等待中',
   completed: '已完成',
+  failed: '已失败',
 }
 
 const statusColors: Record<string, string> = {
-  running: '#22c55e',
-  waiting: '#f59e0b',
+  in_progress: '#22c55e',
+  pending: '#f59e0b',
   completed: '#9ca3af',
+  failed: '#ef4444',
 }
 
 export default function SessionHeader({ session, projectName, onPause, onSendCommand }: SessionHeaderProps) {
