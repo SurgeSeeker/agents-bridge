@@ -1,23 +1,44 @@
+import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { mockProjects } from '@/lib/mock-data'
+import type { Project, Session } from '@/types/session'
+import Sidebar from '@/components/sidebar/Sidebar'
+import SessionView from '@/components/session/SessionView'
 
 export function MainLayout() {
+  const [projects] = useState<Project[]>(mockProjects)
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null)
+  const [selectedProjectName, setSelectedProjectName] = useState('')
+
+  const activeSession: Session | null = (() => {
+    if (!activeSessionId) return null
+    for (const p of projects) {
+      const s = p.sessions.find((s) => s.id === activeSessionId)
+      if (s) return s
+    }
+    return null
+  })()
+
+  const handleSelectSession = (sessionId: string) => {
+    setActiveSessionId(sessionId)
+    const project = projects.find((p) => p.sessions.some((s) => s.id === sessionId))
+    setSelectedProjectName(project?.name ?? '')
+  }
+
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b bg-background sticky top-0 z-50">
-        <div className="flex h-14 items-center px-4">
-          <a href="/" className="flex items-center gap-2 font-semibold text-lg">
-            <div
-              className="flex h-8 w-8 items-center justify-center rounded-md text-white font-bold text-sm"
-              style={{ backgroundColor: '#3388BB' }}
-            >
-              AB
-            </div>
-            Agents Bridge
-          </a>
-        </div>
-      </header>
-      <main className="flex-1">
-        <Outlet />
+    <div className="h-screen flex">
+      <Sidebar
+        projects={projects}
+        activeSessionId={activeSessionId}
+        onSelectSession={handleSelectSession}
+        onAddClick={() => console.log('add session')}
+      />
+      <main className="flex-1 flex flex-col min-w-0">
+        {activeSession ? (
+          <SessionView session={activeSession} projectName={selectedProjectName} />
+        ) : (
+          <Outlet />
+        )}
       </main>
     </div>
   )
