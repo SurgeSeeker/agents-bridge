@@ -1,4 +1,4 @@
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ToolCallItem from '@/components/session/ToolCallItem'
 import type { ToolCallData, ToolKind } from '@/types/session'
@@ -87,7 +87,9 @@ describe('ToolCallItem', () => {
       // Click to collapse
       await user.click(screen.getByRole('button'))
       // Wait for AnimatePresence exit animation to finish, then assert element is gone
-      await waitForElementToBeRemoved(() => screen.queryByText('test input'))
+      await waitFor(() => {
+        expect(screen.queryByText('test input')).not.toBeInTheDocument()
+      })
     })
   })
 
