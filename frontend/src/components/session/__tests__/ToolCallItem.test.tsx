@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ToolCallItem from '@/components/session/ToolCallItem'
 import type { ToolCallData, ToolKind } from '@/types/session'
@@ -86,14 +86,8 @@ describe('ToolCallItem', () => {
 
       // Click to collapse
       await user.click(screen.getByRole('button'))
-      // AnimatePresence may keep the element in DOM during exit animation,
-      // so check it is no longer visible rather than absent from the DOM.
-      const text = screen.queryByText('test input')
-      if (text) {
-        expect(text).not.toBeVisible()
-      } else {
-        expect(text).not.toBeInTheDocument()
-      }
+      // Wait for AnimatePresence exit animation to finish, then assert element is gone
+      await waitForElementToBeRemoved(() => screen.queryByText('test input'))
     })
   })
 

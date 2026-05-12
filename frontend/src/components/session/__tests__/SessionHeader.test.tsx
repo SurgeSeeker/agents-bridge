@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import SessionHeader from '@/components/session/SessionHeader'
 import type { Session } from '@/types/session'
 
@@ -45,5 +46,41 @@ describe('SessionHeader', () => {
     const statusDot = container.querySelector('span.h-2.w-2.rounded-full')
     expect(statusDot).toBeInTheDocument()
     expect(statusDot).toHaveStyle({ backgroundColor: '#22c55e' })
+  })
+
+  // Scenario 3: Click pause button calls onPause
+  it('calls onPause when pause button is clicked', async () => {
+    const user = userEvent.setup()
+    const onPause = vi.fn()
+    render(
+      <SessionHeader
+        session={baseSession}
+        projectName="My Project"
+        onPause={onPause}
+        onSendCommand={() => {}}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: '暂停' }))
+
+    expect(onPause).toHaveBeenCalledTimes(1)
+  })
+
+  // Scenario 4: Click send command button calls onSendCommand
+  it('calls onSendCommand when send command button is clicked', async () => {
+    const user = userEvent.setup()
+    const onSendCommand = vi.fn()
+    render(
+      <SessionHeader
+        session={baseSession}
+        projectName="My Project"
+        onPause={() => {}}
+        onSendCommand={onSendCommand}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: '发送指令' }))
+
+    expect(onSendCommand).toHaveBeenCalledTimes(1)
   })
 })

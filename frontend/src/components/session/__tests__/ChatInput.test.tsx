@@ -29,7 +29,7 @@ describe('ChatInput', () => {
     render(<ChatInput onSend={onSend} />)
 
     const input = screen.getByPlaceholderText('输入消息...')
-    await user.type(input, 'hello')
+    await user.type(input, '  hello  ')
     await user.click(screen.getByRole('button', { name: '发送' }))
 
     expect(onSend).toHaveBeenCalledTimes(1)
