@@ -25,6 +25,7 @@ describe('mockProjects', () => {
         expect(session).toHaveProperty('name')
         expect(session).toHaveProperty('status')
         expect(session).toHaveProperty('branch')
+        expect(session).toHaveProperty('projectId')
         expect(session).toHaveProperty('messages')
 
         expect(typeof session.id).toBe('string')
@@ -46,6 +47,7 @@ describe('mockProjects', () => {
           expect(message).toHaveProperty('id')
           expect(message).toHaveProperty('role')
           expect(message).toHaveProperty('content')
+          expect(message).toHaveProperty('timestamp')
 
           expect(typeof message.id).toBe('string')
           expect(typeof message.content).toBe('string')
