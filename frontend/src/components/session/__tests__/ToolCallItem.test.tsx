@@ -75,7 +75,7 @@ describe('ToolCallItem', () => {
         ...baseToolCall,
         rawInput: 'test input',
       }
-      const { container } = render(<ToolCallItem toolCall={toolCall} />)
+      render(<ToolCallItem toolCall={toolCall} />)
 
       // Initially not in the DOM at all
       expect(screen.queryByText('test input')).not.toBeInTheDocument()
